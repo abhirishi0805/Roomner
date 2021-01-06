@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "306794263577",
+    "project_id": "roomner-53adc",
+    "storage_bucket": "roomner-53adc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306794263577:android:fd44f828b9945473a96688",
+        "android_client_info": {
+          "package_name": "com.example.roomner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "306794263577-8r42bbvc9koia1htsdo2d7jbj2fp5pik.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvxA0Kvdf3tbHqlitRiejaBruKD8JPhiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "306794263577-8r42bbvc9koia1htsdo2d7jbj2fp5pik.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
