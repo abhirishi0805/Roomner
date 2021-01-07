@@ -97,10 +97,11 @@
                     android:id="@+id/tvSignUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:layout_weight="2"
-                    android:textColor="#6011D1"
                     android:clickable="true"
-                    android:text="@string/sign_up_here" />
+                    android:text="@string/sign_up_here"
+                    android:textColor="#6011D1" />
             </LinearLayout>
 
         </LinearLayout>

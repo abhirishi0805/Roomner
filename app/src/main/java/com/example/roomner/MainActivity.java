@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                     else {
                                         Toast.makeText(MainActivity.this, "LogIn Failed or User Not Available", Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.GONE);
                                     }
                                 }
                             });

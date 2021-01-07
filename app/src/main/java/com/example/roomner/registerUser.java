@@ -13,14 +13,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class registerUser extends AppCompatActivity {
 
-    EditText etEmail, etPassword, etConfirmPassword;
+    EditText etEmail;
     Button btnProceed;
     ProgressBar progressBar;
+    TextInputLayout input_text_password, input_text_confirmPassword;
 
     private FirebaseAuth mAuth;
 
@@ -30,26 +33,32 @@ public class registerUser extends AppCompatActivity {
         setContentView(R.layout.activity_register_user);
 
         etEmail = (EditText) findViewById(R.id.etEmail);
-        etPassword = (EditText) findViewById(R.id.etPassword);
-        etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
         btnProceed = (Button) findViewById(R.id.btnSubmit);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        input_text_password = (TextInputLayout) findViewById(R.id.input_text_password);
+        input_text_confirmPassword = (TextInputLayout) findViewById(R.id.input_text_confirmPassword);
 
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                input_text_password.setError(null);
+                input_text_confirmPassword.setError(null);
+
                 String email = etEmail.getText().toString().trim();
-                String password = etPassword.getText().toString().trim();
-                String confirmPassword = etConfirmPassword.getText().toString().trim();
+                String password = input_text_password.getEditText().getText().toString().trim();
+                String confirmPassword = input_text_confirmPassword.getEditText().getText().toString().trim();
 
                 mAuth = FirebaseAuth.getInstance();
 
                 if(email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()){
                     Toast.makeText(registerUser.this, "Please enter all fields!!", Toast.LENGTH_SHORT).show();
                 }
-                else if(password != confirmPassword){
-                    Toast.makeText(registerUser.this, "Passwords don't match", Toast.LENGTH_SHORT).show();
+                else if(password.length() < 6) {
+                    input_text_password.setError("Password must be of atleast 6 characters");
+                }
+                else if(!password.equals(confirmPassword)){
+                    input_text_confirmPassword.setError("Passwords don't match");
                 }
                 else{
                     progressBar.setVisibility(View.VISIBLE);
@@ -62,7 +71,7 @@ public class registerUser extends AppCompatActivity {
                                     progressBar.setVisibility(View.GONE);
 
                                     if (task.isSuccessful()) {
-                                        startActivity(new Intent(registerUser.this, homeActivity.class));
+                                        startActivity(new Intent(registerUser.this, personalDetails.class));
                                         Toast.makeText(registerUser.this, "Registration Complete", Toast.LENGTH_SHORT).show();
                                     }
                                     else {
