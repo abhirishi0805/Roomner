@@ -4,6 +4,8 @@
     <string name="password">Password</string>
     <string name="submit">SUBMIT</string>
     <string name="email">Email</string>
+    <string name="still_not_registered">Still not registered ?</string>
+    <string name="sign_up_here">Sign Up here</string>
 
     <string-array name="age_array">
         <item>Age</item>

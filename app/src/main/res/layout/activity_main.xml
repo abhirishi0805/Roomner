@@ -90,8 +90,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:gravity="right"
-                    android:text="Still not registered ?  " />
+                    android:gravity="end"
+                    android:text="@string/still_not_registered" />
 
                 <TextView
                     android:id="@+id/tvSignUp"
@@ -100,7 +100,7 @@
                     android:layout_weight="2"
                     android:textColor="#6011D1"
                     android:clickable="true"
-                    android:text="Sign Up here" />
+                    android:text="@string/sign_up_here" />
             </LinearLayout>
 
         </LinearLayout>

@@ -64,19 +64,17 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     progressBar.setVisibility(View.VISIBLE);
 
-                    mAuth.createUserWithEmailAndPassword(email, password)
+                    mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-
-                                    progressBar.setVisibility(View.GONE);
-
                                     if (task.isSuccessful()) {
+                                        progressBar.setVisibility(View.GONE);
+                                        Toast.makeText(MainActivity.this, "Successfully Loged In", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(MainActivity.this, homeActivity.class));
-                                        Toast.makeText(MainActivity.this, "Registration Complete", Toast.LENGTH_SHORT).show();
                                     }
                                     else {
-                                        Toast.makeText(MainActivity.this, "Authentication Failed : ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(MainActivity.this, "LogIn Failed or User Not Available", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -85,11 +83,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
-    }
 }
