@@ -77,6 +77,9 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="7dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:background="@drawable/btndesign"
                 android:text="@string/submit" />
 
             <LinearLayout

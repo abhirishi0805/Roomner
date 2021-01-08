@@ -71,11 +71,14 @@ public class registerUser extends AppCompatActivity {
                                     progressBar.setVisibility(View.GONE);
 
                                     if (task.isSuccessful()) {
-                                        startActivity(new Intent(registerUser.this, personalDetails.class));
+                                        Intent intent = new Intent(registerUser.this, personalDetails.class);
+                                        intent.putExtra("email", email);
+                                        intent.putExtra("password", password);
+                                        startActivity(intent);
                                         Toast.makeText(registerUser.this, "Registration Complete", Toast.LENGTH_SHORT).show();
                                     }
                                     else {
-                                        Toast.makeText(registerUser.this, "Authentication Failed : ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(registerUser.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

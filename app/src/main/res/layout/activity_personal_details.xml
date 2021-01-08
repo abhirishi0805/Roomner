@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:text="PERSONAL DETAILS"
+        android:text="@string/personal_details"
         android:textSize="30sp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -22,14 +22,14 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
-        android:hint="Name">
+        android:hint="@string/name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="text"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -38,15 +38,14 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:hint="Mobile Number">
+        android:hint="@string/mobile_number">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etMobile"
+            android:id="@+id/etNumber"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="phone"
-            android:textSize="22sp" />
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -55,14 +54,13 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Age :"
+            android:text="@string/age"
             android:textSize="22sp" />
 
         <Spinner
@@ -78,22 +76,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="25dp"
-        android:text="Gender :"
+        android:text="@string/gender"
         android:textSize="22sp" />
 
     <RadioGroup
+        android:id="@+id/rgGender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginEnd="10dp">
 
         <RadioButton
             android:id="@+id/rbMale"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Male"
+            android:text="@string/male"
             android:textSize="18sp" />
 
         <RadioButton
@@ -101,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Female"
+            android:text="@string/female"
             android:textSize="18sp" />
 
         <RadioButton
@@ -109,7 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="Transgender"
+            android:text="@string/transgender"
             android:textSize="18sp" />
     </RadioGroup>
 
@@ -119,14 +117,13 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="City :"
+            android:text="@string/city"
             android:textSize="22sp" />
 
         <Spinner
@@ -138,12 +135,14 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btnRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
+        android:paddingLeft="50dp"
         android:paddingRight="50dp"
-        android:paddingLeft="50dp"/>
+        android:text="@string/register"
+        android:background="@drawable/btndesign"/>
 
 </LinearLayout>
