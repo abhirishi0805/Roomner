@@ -18,6 +18,10 @@
     <string name="female">Female</string>
     <string name="transgender">Transgender</string>
     <string name="city">City :</string>
+    <string name="how_important_is_this_match_to_you">How important is this match to you?</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="sign_out">Sign Out !!</string>
 
     <string-array name="age_array">
         <item>Age</item>

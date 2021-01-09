@@ -87,11 +87,11 @@ public class personalDetails extends AppCompatActivity implements AdapterView.On
                     uid = firebaseUser.getUid();
 
                     database = FirebaseDatabase.getInstance();
-                    referencePersonalData = database.getReference("Personal Data");
+                    referencePersonalData = database.getReference(uid);
 
                     personalDataModel user = new personalDataModel(uid, email, password, name, gender, age, number, city);
 
-                    referencePersonalData.child(uid).setValue(user);
+                    referencePersonalData.child("Personal Data").setValue(user);
 
                     Toast.makeText(personalDetails.this, "User Registered", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(personalDetails.this, homeActivity.class));

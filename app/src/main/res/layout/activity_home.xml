@@ -6,13 +6,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".homeActivity">
-    
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:srcCompat="@drawable/roomner_logo" />
+
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="300dp"
         android:columnCount="2"
         android:columnOrderPreserved="false"
-        android:padding="24dp"
+        android:padding="25dp"
         android:rowCount="2">
 
 
@@ -22,15 +29,14 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cvPreference"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="100dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="70dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="70dp"
-            android:backgroundTint="#ABC8FA"
+            android:backgroundTint="#2821EA"
             android:clickable="true"
+            android:onClick="clicked"
             app:cardCornerRadius="8dp"
             app:cardElevation="28dp">
 
@@ -39,7 +45,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Update Your\nPreferences"
-                android:textSize="18dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
         </androidx.cardview.widget.CardView>
@@ -48,15 +55,14 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cvMatches"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="100dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="70dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="70dp"
-            android:backgroundTint="#ABC8FA"
+            android:backgroundTint="#2821EA"
             android:clickable="true"
+            android:onClick="clicked"
             app:cardCornerRadius="8dp"
             app:cardElevation="28dp">
 
@@ -64,8 +70,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="   Show\nMatches"
-                android:textSize="18dp"
+                android:text="  Show\nMatches"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
         </androidx.cardview.widget.CardView>
@@ -76,15 +83,16 @@
         <!-- Column 1 -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cvFeedback"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="140dp"
-            android:backgroundTint="#ABC8FA"
+            android:backgroundTint="#2821EA"
             android:clickable="true"
+            android:onClick="clicked"
             app:cardCornerRadius="8dp"
             app:cardElevation="28dp">
 
@@ -92,8 +100,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Sign Out !!"
-                android:textSize="18dp"
+                android:text="@string/sign_out"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
         </androidx.cardview.widget.CardView>
@@ -101,15 +110,16 @@
         <!-- Column 2 -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cvSignOut"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="140dp"
-            android:backgroundTint="#ABC8FA"
+            android:backgroundTint="#2821EA"
             android:clickable="true"
+            android:onClick="clicked"
             app:cardCornerRadius="8dp"
             app:cardElevation="28dp">
 
@@ -118,11 +128,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="  Submit\nFeedback"
-                android:textSize="18dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
         </androidx.cardview.widget.CardView>
 
     </GridLayout>
-    
+
 </LinearLayout>

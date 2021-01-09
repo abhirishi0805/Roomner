@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Roomner">
-        <activity android:name=".personalDetails"></activity>
+        <activity android:name=".userPreferences"></activity>
+        <activity android:name=".personalDetails" />
         <activity android:name=".homeActivity" />
         <activity android:name=".registerUser" />
         <activity android:name=".MainActivity">

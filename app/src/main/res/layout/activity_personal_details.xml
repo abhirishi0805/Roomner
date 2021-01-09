@@ -14,7 +14,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:text="@string/personal_details"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -61,6 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/age"
+            android:textColor="@color/black"
             android:textSize="22sp" />
 
         <Spinner
@@ -77,6 +79,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="25dp"
         android:text="@string/gender"
+        android:textColor="@color/black"
         android:textSize="22sp" />
 
     <RadioGroup
@@ -124,6 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/city"
+            android:textColor="@color/black"
             android:textSize="22sp" />
 
         <Spinner
