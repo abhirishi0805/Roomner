@@ -63,7 +63,7 @@ public class matchAdapter extends RecyclerView.Adapter<matchAdapter.ViewHolder>
     {
         holder.itemView.setTag(people.get(position));
 
-        holder.tvName.setText(people.get(position).getPersonalData().getName());
+        holder.tvName.setText(people.get(position).getUser().getPersonal_Data().getName());
         holder.tvPercentage.setText(String.format("%d%%", people.get(position).getPercentageMatch()));
     }
 

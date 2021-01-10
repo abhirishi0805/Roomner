@@ -20,8 +20,10 @@ public class showMatches extends AppCompatActivity implements matchAdapter.itemC
 
     ArrayList<matchHelperModel> people;
 
+    userModel me, other;
+
     FirebaseDatabase database;
-    DatabaseReference preferencesReference;
+    DatabaseReference reference;
 
     RecyclerView recyclerViewMatches;
     RecyclerView.Adapter adapter;
@@ -32,7 +34,7 @@ public class showMatches extends AppCompatActivity implements matchAdapter.itemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_matches);
 
-        getData();
+        people = getData();
 
         recyclerViewMatches = findViewById(R.id.recyclerViewMatches);
         recyclerViewMatches.setHasFixedSize(true);
@@ -44,19 +46,31 @@ public class showMatches extends AppCompatActivity implements matchAdapter.itemC
         recyclerViewMatches.setAdapter(adapter);
     }
 
-    private void getData()
+    private ArrayList<matchHelperModel> getData()
     {
+        ArrayList<matchHelperModel> list = new ArrayList<matchHelperModel>();
+        list.clear();
+
         database = FirebaseDatabase.getInstance();
-     //   personalDataReference = database.getReference().child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Personal Data");
-        preferencesReference = database.getReference().child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Preferences");
-        //weightSumReference = database.getReference().child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Weight Sum");
+        reference = database.getReference();
 
-        people.clear();
-
-        preferencesReference.addValueEventListener(new ValueEventListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                me = snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).getValue(userModel.class);
 
+                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    other = dataSnapshot.getValue(userModel.class);
+
+                    if((!other.getPersonal_Data().getUid().equals(me.getPersonal_Data().getUid()))
+                            && (other.getPersonal_Data().getCity().equals(me.getPersonal_Data().getCity())))
+                    {
+                        int percentageMatch = calculateMatch(me, other);
+                        list.add(new matchHelperModel(other, percentageMatch));
+                    }
+                }
             }
 
             @Override
@@ -64,12 +78,17 @@ public class showMatches extends AppCompatActivity implements matchAdapter.itemC
 
             }
         });
-
-
+        return list;
     }
 
     @Override
     public void onItemClicked(int index) {
 
+    }
+
+    public int calculateMatch(userModel me, userModel other)
+    {
+        int percentageMatch;
+        return 0;
     }
 }

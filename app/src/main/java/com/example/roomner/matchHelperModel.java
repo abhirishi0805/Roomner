@@ -1,50 +1,23 @@
 package com.example.roomner;
 
 public class matchHelperModel {
-    private personalDataModel personalData;
-    private int[] choices;
-    private int[] importance;
-    private int weightSum;
+    private userModel user;
     private int percentageMatch;
 
-    public matchHelperModel(personalDataModel personalData, int[] choices, int[] importance, int weightSum, int percentageMatch) {
-        this.personalData = personalData;
-        this.choices = choices;
-        this.importance = importance;
-        this.weightSum = weightSum;
+    public matchHelperModel() {
+    }
+
+    public matchHelperModel(userModel user, int percentageMatch) {
+        this.user = user;
         this.percentageMatch = percentageMatch;
     }
 
-    public personalDataModel getPersonalData() {
-        return personalData;
+    public userModel getUser() {
+        return user;
     }
 
-    public void setPersonalData(personalDataModel personalData) {
-        this.personalData = personalData;
-    }
-
-    public int[] getChoices() {
-        return choices;
-    }
-
-    public void setChoices(int[] choices) {
-        this.choices = choices;
-    }
-
-    public int[] getImportance() {
-        return importance;
-    }
-
-    public void setImportance(int[] importance) {
-        this.importance = importance;
-    }
-
-    public int getWeightSum() {
-        return weightSum;
-    }
-
-    public void setWeightSum(int weightSum) {
-        this.weightSum = weightSum;
+    public void setUser(userModel user) {
+        this.user = user;
     }
 
     public int getPercentageMatch() {
