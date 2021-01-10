@@ -1,6 +1,9 @@
 package com.example.roomner;
 
-public class personalDataModel {
+import java.io.Serializable;
+
+public class personalDataModel implements Serializable
+{
     private String uid;
     private String name;
     private String number;

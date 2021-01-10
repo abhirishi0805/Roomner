@@ -1,15 +1,15 @@
 package com.example.roomner;
 
-public class questionModel {
+public class questionDisplayModel {
     private String question;
     private String high;
     private String neutral;
     private String low;
 
-    public questionModel() {
+    public questionDisplayModel() {
     }
 
-    public questionModel(String question, String high, String neutral, String low) {
+    public questionDisplayModel(String question, String high, String neutral, String low) {
         this.question = question;
         this.high = high;
         this.neutral = neutral;

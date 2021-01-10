@@ -29,10 +29,12 @@ public class userPreferences extends AppCompatActivity {
     Button btnPrevious, btnNext, btnSubmitPref;
     ProgressBar progressBar2;
 
-    ArrayList<questionModel> questions;
+    ArrayList<questionDisplayModel> questions;
     int currentQuestion = 0;
     int[] choices = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
     int[] importance = {1,1,1,1,1,1,1,1,1,1};
+
+    personalDataModel Personal_Data;
 
     String uid;
     FirebaseDatabase firebaseDatabase;
@@ -55,20 +57,22 @@ public class userPreferences extends AppCompatActivity {
         btnSubmitPref = (Button) findViewById(R.id.btnSubmitPref);
         progressBar2 = (ProgressBar) findViewById(R.id.progressBar2);
 
-        questions = new ArrayList<questionModel>();
-
-        questions.add(new questionModel("At what time do you get up?", "Quite early", "Around 7-8", "Quite late"));
-        questions.add(new questionModel("At what time do you sleep?", "About 9", "Around 10-11", "Quite late"));
-        questions.add(new questionModel("How important is cleanliness to you?", "I keep my surroundings extremely clean", "I lie somewhere in between", "I'm not much into cleanliness"));
-        questions.add(new questionModel("Are you into the habit of drinking or smoking?", "Quite often", "Sometimes", "Never or rarely"));
-        questions.add(new questionModel("How often do you stay outside the house?", "Most of the times", "Occasional outings", "Only during the working hours"));
-        questions.add(new questionModel("Are you into gaming?", "Yes oftenly", "Sometimes", "Not at all"));
-        questions.add(new questionModel("Do you have guests or friends at home?", "Yes, quite oftenly", "Maybe once or twice in a month", "No, I don't bring people to my house"));
-        questions.add(new questionModel("Do you use nightlamps?", "Yes I do", "I'm comfortable either way", "No I don't"));
-        questions.add(new questionModel("Are you into using your roommate's stuff?", "Yes, I like sharing", "I'm ok with occasional borrowing and lendings", "No, I'm not much into sharing"));
-        questions.add(new questionModel("Do you listen to loud music?", "Almost everyday", "Sometimes", "Not at all"));
-
         btnSubmitPref.setVisibility(View.GONE);
+
+        Personal_Data = (personalDataModel) getIntent().getSerializableExtra("Personal_Data");
+
+        questions = new ArrayList<questionDisplayModel>();
+
+        questions.add(new questionDisplayModel("At what time do you get up?", "Quite early", "Around 7-8", "Quite late"));
+        questions.add(new questionDisplayModel("At what time do you sleep?", "About 9", "Around 10-11", "Quite late"));
+        questions.add(new questionDisplayModel("How important is cleanliness to you?", "I keep my surroundings extremely clean", "I lie somewhere in between", "I'm not much into cleanliness"));
+        questions.add(new questionDisplayModel("Are you into the habit of drinking or smoking?", "Quite often", "Sometimes", "Never or rarely"));
+        questions.add(new questionDisplayModel("How often do you stay outside the house?", "Most of the times", "Occasional outings", "Only during the working hours"));
+        questions.add(new questionDisplayModel("Are you into gaming?", "Yes oftenly", "Sometimes", "Not at all"));
+        questions.add(new questionDisplayModel("Do you have guests or friends at home?", "Yes, quite oftenly", "Maybe once or twice in a month", "No, I don't bring people to my house"));
+        questions.add(new questionDisplayModel("Do you use nightlamps?", "Yes I do", "I'm comfortable either way", "No I don't"));
+        questions.add(new questionDisplayModel("Are you into using your roommate's stuff?", "Yes, I like sharing", "I'm ok with occasional borrowing and lendings", "No, I'm not much into sharing"));
+        questions.add(new questionDisplayModel("Do you listen to loud music?", "Almost everyday", "Sometimes", "Not at all"));
 
         questionAdapter();
 
@@ -114,21 +118,57 @@ public class userPreferences extends AppCompatActivity {
 
                 uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference(uid);
-
-                int total_weight = 0;
+                preferencesModel Preferences = new preferencesModel();
+                int weight_sum = 0;
 
                 for(int i=0; i<=9; ++i)
                 {
-                    databaseReference.child("Preferences").child("Question "+(i+1)).child("Choice").setValue(choices[i]);
-                    databaseReference.child("Preferences").child("Question "+(i+1)).child("Importance").setValue(importance[i]);
-                    total_weight += importance[i];
+                    weight_sum += importance[i];
+
+                    switch (i){
+                        case 0:
+                            Preferences.setQuestion_1(new questionUploadModel(choices[0], importance[0]));
+                            break;
+                        case 1:
+                            Preferences.setQuestion_2(new questionUploadModel(choices[1], importance[1]));
+                            break;
+                        case 2:
+                            Preferences.setQuestion_3(new questionUploadModel(choices[2], importance[2]));
+                            break;
+                        case 3:
+                            Preferences.setQuestion_4(new questionUploadModel(choices[3], importance[3]));
+                            break;
+                        case 4:
+                            Preferences.setQuestion_5(new questionUploadModel(choices[4], importance[4]));
+                            break;
+                        case 5:
+                            Preferences.setQuestion_6(new questionUploadModel(choices[5], importance[5]));
+                            break;
+                        case 6:
+                            Preferences.setQuestion_7(new questionUploadModel(choices[6], importance[6]));
+                            break;
+                        case 7:
+                            Preferences.setQuestion_8(new questionUploadModel(choices[7], importance[7]));
+                            break;
+                        case 8:
+                            Preferences.setQuestion_9(new questionUploadModel(choices[8], importance[8]));
+                            break;
+                        case 9:
+                            Preferences.setQuestion_10(new questionUploadModel(choices[9], importance[9]));
+                            break;
+                    }
                 }
 
-                databaseReference.child("Weight Sum").setValue(total_weight);
+                Preferences.setWeight_sum(weight_sum);
 
-                Toast.makeText(userPreferences.this, "Preferences Registered", Toast.LENGTH_SHORT).show();
+                userModel user = new userModel(Personal_Data, Preferences);
+
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                databaseReference = firebaseDatabase.getReference();
+
+                databaseReference.child(uid).setValue(user);
+
+                Toast.makeText(userPreferences.this, "Registration Complete", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(userPreferences.this, homeActivity.class));
             }
         });

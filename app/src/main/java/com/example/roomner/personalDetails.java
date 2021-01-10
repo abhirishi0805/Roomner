@@ -28,11 +28,6 @@ public class personalDetails extends AppCompatActivity implements AdapterView.On
 
     String age, city, name, number, gender, email, password, id, uid;
 
-    FirebaseDatabase database;
-    DatabaseReference referencePersonalData;
-    FirebaseAuth mAuth;
-    FirebaseUser firebaseUser;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,20 +76,13 @@ public class personalDetails extends AppCompatActivity implements AdapterView.On
                 if(name.isEmpty() || number.isEmpty() || gender.isEmpty() || age.equals("Age") || city.equals("City")) {
                     Toast.makeText(personalDetails.this, "Please enter all details", Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    mAuth = FirebaseAuth.getInstance();
-                    firebaseUser = mAuth.getCurrentUser();
-                    uid = firebaseUser.getUid();
+                else {
+                    uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    personalDataModel Personal_Data = new personalDataModel(uid, email, password, name, gender, age, number, city);
 
-                    database = FirebaseDatabase.getInstance();
-                    referencePersonalData = database.getReference(uid);
-
-                    personalDataModel user = new personalDataModel(uid, email, password, name, gender, age, number, city);
-
-                    referencePersonalData.child("Personal Data").setValue(user);
-
-                    Toast.makeText(personalDetails.this, "User Registered", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(personalDetails.this, homeActivity.class));
+                    Intent intent = new Intent(personalDetails.this, userPreferences.class);
+                    intent.putExtra("Personal_Data", Personal_Data);
+                    startActivity(intent);
                 }
             }
         });

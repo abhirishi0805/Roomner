@@ -75,7 +75,7 @@ public class registerUser extends AppCompatActivity {
                                         intent.putExtra("email", email);
                                         intent.putExtra("password", password);
                                         startActivity(intent);
-                                        Toast.makeText(registerUser.this, "Registration Complete", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(registerUser.this, "User Registered", Toast.LENGTH_SHORT).show();
                                     }
                                     else {
                                         Toast.makeText(registerUser.this, "Authentication Failed", Toast.LENGTH_SHORT).show();

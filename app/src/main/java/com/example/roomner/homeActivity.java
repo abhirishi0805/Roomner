@@ -24,6 +24,7 @@ public class homeActivity extends AppCompatActivity {
                 startActivity(new Intent(homeActivity.this, userPreferences.class));
                 break;
             case R.id.cvMatches:
+                startActivity(new Intent(homeActivity.this, showMatches.class));
                 break;
             case R.id.cvSignOut:
                 break;
