@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class showMatches extends AppCompatActivity implements matchAdapter.itemClicked{
 
@@ -71,6 +72,8 @@ public class showMatches extends AppCompatActivity implements matchAdapter.itemC
                         list.add(new matchHelperModel(other, percentageMatch));
                     }
                 }
+
+                Collections.sort(people, new sortingClass());
             }
 
             @Override
@@ -78,6 +81,7 @@ public class showMatches extends AppCompatActivity implements matchAdapter.itemC
 
             }
         });
+
         return list;
     }
 
