@@ -88,7 +88,38 @@ public class showMatches extends AppCompatActivity implements matchAdapter.itemC
 
     public int calculateMatch(userModel me, userModel other)
     {
-        int percentageMatch;
-        return 0;
+        double percentageMatch = 0.0;
+
+        percentageMatch += ((double)(2-Math.abs(me.getPreferences().getQuestion_1().getChoice() - other.getPreferences().getQuestion_1().getChoice()))/2)
+                * ((double)me.getPreferences().getQuestion_1().getImportance()/me.getPreferences().getWeight_sum()) * 100;
+
+        percentageMatch += ((double)(2-Math.abs(me.getPreferences().getQuestion_2().getChoice() - other.getPreferences().getQuestion_2().getChoice()))/2)
+                * ((double)me.getPreferences().getQuestion_2().getImportance()/me.getPreferences().getWeight_sum()) * 100;
+
+        percentageMatch += (((double)2-Math.abs(me.getPreferences().getQuestion_3().getChoice() - other.getPreferences().getQuestion_3().getChoice()))/2)
+                * ((double)me.getPreferences().getQuestion_3().getImportance()/me.getPreferences().getWeight_sum()) * 100;
+
+        percentageMatch += ((double)(2-Math.abs(me.getPreferences().getQuestion_4().getChoice() - other.getPreferences().getQuestion_4().getChoice()))/2)
+                * ((double)me.getPreferences().getQuestion_4().getImportance()/me.getPreferences().getWeight_sum()) * 100;
+
+        percentageMatch += ((double)(2-Math.abs(me.getPreferences().getQuestion_5().getChoice() - other.getPreferences().getQuestion_5().getChoice()))/2)
+                * ((double)me.getPreferences().getQuestion_5().getImportance()/me.getPreferences().getWeight_sum()) * 100;
+
+        percentageMatch += ((double)(2-Math.abs(me.getPreferences().getQuestion_6().getChoice() - other.getPreferences().getQuestion_6().getChoice()))/2)
+                * ((double)me.getPreferences().getQuestion_6().getImportance()/me.getPreferences().getWeight_sum()) * 100;
+
+        percentageMatch += ((double)(2-Math.abs(me.getPreferences().getQuestion_7().getChoice() - other.getPreferences().getQuestion_7().getChoice()))/2)
+                * ((double)me.getPreferences().getQuestion_7().getImportance()/me.getPreferences().getWeight_sum()) * 100;
+
+        percentageMatch += ((double)(2-Math.abs(me.getPreferences().getQuestion_8().getChoice() - other.getPreferences().getQuestion_8().getChoice()))/2)
+                * ((double)me.getPreferences().getQuestion_8().getImportance()/me.getPreferences().getWeight_sum()) * 100;
+
+        percentageMatch += ((double)(2-Math.abs(me.getPreferences().getQuestion_9().getChoice() - other.getPreferences().getQuestion_9().getChoice()))/2)
+                * ((double)me.getPreferences().getQuestion_9().getImportance()/me.getPreferences().getWeight_sum()) * 100;
+
+        percentageMatch += ((double)(2-Math.abs(me.getPreferences().getQuestion_10().getChoice() - other.getPreferences().getQuestion_10().getChoice()))/2)
+                * ((double)me.getPreferences().getQuestion_10().getImportance()/me.getPreferences().getWeight_sum()) * 100;
+
+        return (int)percentageMatch;
     }
 }
