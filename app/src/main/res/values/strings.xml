@@ -23,6 +23,7 @@
     <string name="sign_out">Sign Out !!</string>
     <string name="register">REGISTER</string>
     <string name="proceed_to_select_preferences">PROCEED TO SELECT PREFERENCES</string>
+    <string name="matches">MATCHES</string>
 
     <string-array name="age_array">
         <item>Age</item>

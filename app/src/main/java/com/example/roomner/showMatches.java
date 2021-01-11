@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -14,16 +17,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class showMatches extends AppCompatActivity implements matchAdapter.itemClicked{
 
+    ProgressBar progressBar3;
+    TextView tvLoading;
+
     ArrayList<matchHelperModel> people;
 
     userModel me, other;
-
-    FirebaseDatabase database;
     DatabaseReference reference;
 
     RecyclerView recyclerViewMatches;
@@ -35,7 +41,10 @@ public class showMatches extends AppCompatActivity implements matchAdapter.itemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_matches);
 
-        people = getData();
+        progressBar3 = (ProgressBar) findViewById(R.id.progressBar3);
+        tvLoading = (TextView) findViewById(R.id.tvLoading);
+
+        people = new ArrayList<>();
 
         recyclerViewMatches = findViewById(R.id.recyclerViewMatches);
         recyclerViewMatches.setHasFixedSize(true);
@@ -43,17 +52,14 @@ public class showMatches extends AppCompatActivity implements matchAdapter.itemC
         layoutManager = new GridLayoutManager(showMatches.this, 2, GridLayoutManager.VERTICAL, false);
         recyclerViewMatches.setLayoutManager(layoutManager);
 
-        adapter = new matchAdapter(this, people);
-        recyclerViewMatches.setAdapter(adapter);
+        setData();
     }
 
-    private ArrayList<matchHelperModel> getData()
+    private void setData()
     {
-        ArrayList<matchHelperModel> list = new ArrayList<matchHelperModel>();
-        list.clear();
+        people.clear();
 
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference();
+        reference = FirebaseDatabase.getInstance().getReference();
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -69,11 +75,17 @@ public class showMatches extends AppCompatActivity implements matchAdapter.itemC
                             && (other.getPersonal_Data().getCity().equals(me.getPersonal_Data().getCity())))
                     {
                         int percentageMatch = calculateMatch(me, other);
-                        list.add(new matchHelperModel(other, percentageMatch));
+                        people.add(new matchHelperModel(other, percentageMatch));
                     }
                 }
 
                 Collections.sort(people, new sortingClass());
+
+                adapter = new matchAdapter(showMatches.this, people);
+                recyclerViewMatches.setAdapter(adapter);
+
+                tvLoading.setVisibility(View.GONE);
+                progressBar3.setVisibility(View.GONE);
             }
 
             @Override
@@ -81,8 +93,6 @@ public class showMatches extends AppCompatActivity implements matchAdapter.itemC
 
             }
         });
-
-        return list;
     }
 
     @Override
