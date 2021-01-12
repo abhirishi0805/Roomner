@@ -37,6 +37,8 @@ public class homeActivity extends AppCompatActivity {
                 signOutDialog();
                 break;
             case R.id.cvFeedback:
+                feedbackDialog dialog = new feedbackDialog();
+                dialog.show(getSupportFragmentManager(), "feedback dialog");
         }
     }
 

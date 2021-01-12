@@ -69,13 +69,14 @@ public class showMatches extends AppCompatActivity implements matchAdapter.itemC
 
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
-                    other = dataSnapshot.getValue(userModel.class);
+                    if(!dataSnapshot.getKey().equals("Feedbacks")) {
+                        other = dataSnapshot.getValue(userModel.class);
 
-                    if((!other.getPersonal_Data().getUid().equals(me.getPersonal_Data().getUid()))
-                            && (other.getPersonal_Data().getCity().equals(me.getPersonal_Data().getCity())))
-                    {
-                        int percentageMatch = calculateMatch(me, other);
-                        people.add(new matchHelperModel(other, percentageMatch));
+                        if ((!other.getPersonal_Data().getUid().equals(me.getPersonal_Data().getUid()))
+                                && (other.getPersonal_Data().getCity().equals(me.getPersonal_Data().getCity()))) {
+                            int percentageMatch = calculateMatch(me, other);
+                            people.add(new matchHelperModel(other, percentageMatch));
+                        }
                     }
                 }
 
