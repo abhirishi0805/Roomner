@@ -28,7 +28,9 @@ public class homeActivity extends AppCompatActivity {
 
         switch (id){
             case R.id.cvPreference:
-                startActivity(new Intent(homeActivity.this, userPreferences.class));
+                Intent intent = new Intent(homeActivity.this, userPreferences.class);
+                intent.putExtra("status", "old user");
+                startActivity(intent);
                 break;
             case R.id.cvMatches:
                 startActivity(new Intent(homeActivity.this, showMatches.class));

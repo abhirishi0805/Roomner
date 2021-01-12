@@ -80,6 +80,7 @@ public class personalDetails extends AppCompatActivity implements AdapterView.On
 
                 Intent intent = new Intent(personalDetails.this, userPreferences.class);
                 intent.putExtra("Personal_Data", Personal_Data);
+                intent.putExtra("status", "new user");
                 startActivity(intent);
             }
         });

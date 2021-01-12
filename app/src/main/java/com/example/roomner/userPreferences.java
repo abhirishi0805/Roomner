@@ -35,6 +35,7 @@ public class userPreferences extends AppCompatActivity {
     int[] importance = {1,1,1,1,1,1,1,1,1,1};
 
     personalDataModel Personal_Data;
+    String status;
 
     String uid;
     FirebaseDatabase firebaseDatabase;
@@ -59,7 +60,7 @@ public class userPreferences extends AppCompatActivity {
 
         btnSubmitPref.setVisibility(View.GONE);
 
-        Personal_Data = (personalDataModel) getIntent().getSerializableExtra("Personal_Data");
+        status = getIntent().getStringExtra("status");
 
         questions = new ArrayList<>();
 
@@ -90,84 +91,85 @@ public class userPreferences extends AppCompatActivity {
             }
         });
 
-        btnPrevious.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(currentQuestion != 0)
+        btnPrevious.setOnClickListener(v -> {
+            if(currentQuestion != 0)
+            {
+                if(rbHigh.isChecked() || rbNeutral.isChecked() || rbLow.isChecked()) {
+                    --currentQuestion;
+                    questionAdapter();
+                }
+                else
                 {
-                    if(rbHigh.isChecked() || rbNeutral.isChecked() || rbLow.isChecked()) {
-                        --currentQuestion;
-                        questionAdapter();
-                    }
-                    else
-                    {
-                        Toast.makeText(userPreferences.this, "Please select something", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(userPreferences.this, "Please select something", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        btnSubmitPref.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnSubmitPref.setOnClickListener(v -> {
 
-                progressBar2.setVisibility(View.VISIBLE);
+            progressBar2.setVisibility(View.VISIBLE);
 
-                uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                preferencesModel Preferences = new preferencesModel();
-                int weight_sum = 0;
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            databaseReference = firebaseDatabase.getReference();
 
-                for(int i=0; i<=9; ++i)
-                {
-                    weight_sum += importance[i];
+            preferencesModel Preferences = new preferencesModel();
+            int weight_sum = 0;
 
-                    switch (i){
-                        case 0:
-                            Preferences.setQuestion_1(new questionUploadModel(choices[0], importance[0]));
-                            break;
-                        case 1:
-                            Preferences.setQuestion_2(new questionUploadModel(choices[1], importance[1]));
-                            break;
-                        case 2:
-                            Preferences.setQuestion_3(new questionUploadModel(choices[2], importance[2]));
-                            break;
-                        case 3:
-                            Preferences.setQuestion_4(new questionUploadModel(choices[3], importance[3]));
-                            break;
-                        case 4:
-                            Preferences.setQuestion_5(new questionUploadModel(choices[4], importance[4]));
-                            break;
-                        case 5:
-                            Preferences.setQuestion_6(new questionUploadModel(choices[5], importance[5]));
-                            break;
-                        case 6:
-                            Preferences.setQuestion_7(new questionUploadModel(choices[6], importance[6]));
-                            break;
-                        case 7:
-                            Preferences.setQuestion_8(new questionUploadModel(choices[7], importance[7]));
-                            break;
-                        case 8:
-                            Preferences.setQuestion_9(new questionUploadModel(choices[8], importance[8]));
-                            break;
-                        case 9:
-                            Preferences.setQuestion_10(new questionUploadModel(choices[9], importance[9]));
-                            break;
-                    }
+            for(int i=0; i<=9; ++i)
+            {
+                weight_sum += importance[i];
+
+                switch (i){
+                    case 0:
+                        Preferences.setQuestion_1(new questionUploadModel(choices[0], importance[0]));
+                        break;
+                    case 1:
+                        Preferences.setQuestion_2(new questionUploadModel(choices[1], importance[1]));
+                        break;
+                    case 2:
+                        Preferences.setQuestion_3(new questionUploadModel(choices[2], importance[2]));
+                        break;
+                    case 3:
+                        Preferences.setQuestion_4(new questionUploadModel(choices[3], importance[3]));
+                        break;
+                    case 4:
+                        Preferences.setQuestion_5(new questionUploadModel(choices[4], importance[4]));
+                        break;
+                    case 5:
+                        Preferences.setQuestion_6(new questionUploadModel(choices[5], importance[5]));
+                        break;
+                    case 6:
+                        Preferences.setQuestion_7(new questionUploadModel(choices[6], importance[6]));
+                        break;
+                    case 7:
+                        Preferences.setQuestion_8(new questionUploadModel(choices[7], importance[7]));
+                        break;
+                    case 8:
+                        Preferences.setQuestion_9(new questionUploadModel(choices[8], importance[8]));
+                        break;
+                    case 9:
+                        Preferences.setQuestion_10(new questionUploadModel(choices[9], importance[9]));
+                        break;
                 }
+            }
 
-                Preferences.setWeight_sum(weight_sum);
+            Preferences.setWeight_sum(weight_sum);
 
+            if(status.equals("new user")) {
+
+                Personal_Data = (personalDataModel) getIntent().getSerializableExtra("Personal_Data");
                 userModel user = new userModel(Personal_Data, Preferences);
-
-                firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference();
 
                 databaseReference.child(uid).setValue(user);
 
                 Toast.makeText(userPreferences.this, "Registration Complete", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(userPreferences.this, homeActivity.class));
             }
+            else if(status.equals("old user")){
+                databaseReference.child(uid).child("preferences").setValue(Preferences);
+            }
+            startActivity(new Intent(userPreferences.this, homeActivity.class));
         });
 
         rbHigh.setOnClickListener(v -> {
