@@ -98,7 +98,8 @@ public class showMatches extends AppCompatActivity implements matchAdapter.itemC
 
     @Override
     public void onItemClicked(int index) {
-
+        matchDialog dialog = new matchDialog(people.get(index).getUser().getPersonal_Data());
+        dialog.show(getSupportFragmentManager(), "match dialog");
     }
 
     public int calculateMatch(userModel me, userModel other)

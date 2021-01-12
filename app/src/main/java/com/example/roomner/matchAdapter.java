@@ -40,11 +40,8 @@ public class matchAdapter extends RecyclerView.Adapter<matchAdapter.ViewHolder>
             tvName = itemView.findViewById(R.id.tvName);
             tvPercentage = itemView.findViewById(R.id.tvPercentage);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity.onItemClicked(people.indexOf((matchHelperModel)v.getTag()));
-                }
+            itemView.setOnClickListener(v -> {
+                activity.onItemClicked(people.indexOf(v.getTag()));
             });
         }
     }
