@@ -61,7 +61,7 @@ public class userPreferences extends AppCompatActivity {
 
         Personal_Data = (personalDataModel) getIntent().getSerializableExtra("Personal_Data");
 
-        questions = new ArrayList<questionDisplayModel>();
+        questions = new ArrayList<>();
 
         questions.add(new questionDisplayModel("At what time do you get up?", "Quite early", "Around 7-8", "Quite late"));
         questions.add(new questionDisplayModel("At what time do you sleep?", "About 9", "Around 10-11", "Quite late"));
@@ -76,19 +76,16 @@ public class userPreferences extends AppCompatActivity {
 
         questionAdapter();
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(currentQuestion != 9)
+        btnNext.setOnClickListener(v -> {
+            if(currentQuestion != 9)
+            {
+                if(rbHigh.isChecked() || rbNeutral.isChecked() || rbLow.isChecked()) {
+                    ++currentQuestion;
+                    questionAdapter();
+                }
+                else
                 {
-                    if(rbHigh.isChecked() || rbNeutral.isChecked() || rbLow.isChecked()) {
-                        ++currentQuestion;
-                        questionAdapter();
-                    }
-                    else
-                    {
-                        Toast.makeText(userPreferences.this, "Please select something", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(userPreferences.this, "Please select something", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -173,34 +170,25 @@ public class userPreferences extends AppCompatActivity {
             }
         });
 
-        rbHigh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choices[currentQuestion] = 3;
+        rbHigh.setOnClickListener(v -> {
+            choices[currentQuestion] = 3;
 
-                if(currentQuestion == 9)
-                    btnSubmitPref.setVisibility(View.VISIBLE);
-            }
+            if(currentQuestion == 9)
+                btnSubmitPref.setVisibility(View.VISIBLE);
         });
 
-        rbNeutral.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choices[currentQuestion] = 2;
+        rbNeutral.setOnClickListener(v -> {
+            choices[currentQuestion] = 2;
 
-                if(currentQuestion == 9)
-                    btnSubmitPref.setVisibility(View.VISIBLE);
-            }
+            if(currentQuestion == 9)
+                btnSubmitPref.setVisibility(View.VISIBLE);
         });
 
-        rbLow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choices[currentQuestion] = 1;
+        rbLow.setOnClickListener(v -> {
+            choices[currentQuestion] = 1;
 
-                if(currentQuestion == 9)
-                    btnSubmitPref.setVisibility(View.VISIBLE);
-            }
+            if(currentQuestion == 9)
+                btnSubmitPref.setVisibility(View.VISIBLE);
         });
 
         sbImportance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {

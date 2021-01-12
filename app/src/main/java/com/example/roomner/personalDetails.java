@@ -56,34 +56,31 @@ public class personalDetails extends AppCompatActivity implements AdapterView.On
         spinnerCity.setOnItemSelectedListener(this);
 
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                name = etName.getText().toString().trim();
-                number = etNumber.getText().toString().trim();
+        btnRegister.setOnClickListener(view -> {
+            name = etName.getText().toString().trim();
+            number = etNumber.getText().toString().trim();
 
-                switch (rgGender.getCheckedRadioButtonId()){
-                    case R.id.rbMale:
-                        gender = "Male";
-                        break;
-                    case R.id.rbFemale:
-                        gender = "Female";
-                        break;
-                    case R.id.rbTrans:
-                        gender = "Transgender";
-                }
+            switch (rgGender.getCheckedRadioButtonId()){
+                case R.id.rbMale:
+                    gender = "Male";
+                    break;
+                case R.id.rbFemale:
+                    gender = "Female";
+                    break;
+                case R.id.rbTrans:
+                    gender = "Transgender";
+            }
 
-                if(name.isEmpty() || number.isEmpty() || gender.isEmpty() || age.equals("Age") || city.equals("City")) {
-                    Toast.makeText(personalDetails.this, "Please enter all details", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    personalDataModel Personal_Data = new personalDataModel(uid, email, password, name, gender, age, number, city);
+            if(name.isEmpty() || number.isEmpty() || gender.isEmpty() || age.equals("Age") || city.equals("City")) {
+                Toast.makeText(personalDetails.this, "Please enter all details", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                personalDataModel Personal_Data = new personalDataModel(uid, email, password, name, gender, age, number, city);
 
-                    Intent intent = new Intent(personalDetails.this, userPreferences.class);
-                    intent.putExtra("Personal_Data", Personal_Data);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(personalDetails.this, userPreferences.class);
+                intent.putExtra("Personal_Data", Personal_Data);
+                startActivity(intent);
             }
         });
     }

@@ -23,7 +23,6 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
     EditText etEmail, etPassword;
     TextView tvSignUp;
     Button btnSubmit;
@@ -44,45 +43,44 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        tvSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, registerUser.class));
-            }
-        });
+        tvSignUp.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, registerUser.class)));
 
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnSubmit.setOnClickListener(view -> {
 
-                String email = etEmail.getText().toString().trim();
-                String password = etPassword.getText().toString().trim();
+            String email = etEmail.getText().toString().trim();
+            String password = etPassword.getText().toString().trim();
 
-                if (email.isEmpty() || password.isEmpty())
-                    Toast.makeText(MainActivity.this, "Please fill the fields!", Toast.LENGTH_SHORT).show();
-                else {
-                    progressBar.setVisibility(View.VISIBLE);
+            if (email.isEmpty() || password.isEmpty())
+                Toast.makeText(MainActivity.this, "Please fill the fields!", Toast.LENGTH_SHORT).show();
+            else {
+                progressBar.setVisibility(View.VISIBLE);
 
-                    mAuth.signInWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        progressBar.setVisibility(View.GONE);
-                                        Toast.makeText(MainActivity.this, "Successfully Loged In", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(MainActivity.this, homeActivity.class);
-                                        startActivity(new Intent(MainActivity.this, homeActivity.class));
-                                    }
-                                    else {
-                                        Toast.makeText(MainActivity.this, "LogIn Failed or User Not Available", Toast.LENGTH_SHORT).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
-                }
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(MainActivity.this, task -> {
+                            if (task.isSuccessful()) {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(MainActivity.this, "Successfully Loged In", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, homeActivity.class);
+                                startActivity(new Intent(MainActivity.this, homeActivity.class));
+                            } else {
+                                Toast.makeText(MainActivity.this, "LogIn Failed or User Not Available", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        });
             }
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            startActivity(new Intent(this, homeActivity.class));
+        }
+
+    }
 }

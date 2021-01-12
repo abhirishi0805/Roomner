@@ -16,10 +16,9 @@
 
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="350dp"
         android:columnCount="2"
         android:columnOrderPreserved="false"
-        android:padding="25dp"
         android:rowCount="2">
 
 
@@ -32,7 +31,8 @@
             android:layout_height="100dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginRight="20dp"
             android:backgroundTint="#2821EA"
             android:clickable="true"
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Update Your\nPreferences"
+                android:text=" Setup New\nPreferences"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -58,8 +58,9 @@
             android:layout_height="100dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="40dp"
             android:backgroundTint="#2821EA"
             android:clickable="true"
             android:onClick="clicked"
@@ -82,14 +83,15 @@
 
         <!-- Column 1 -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cvFeedback"
+            android:id="@+id/cvSignOut"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="40dp"
             android:layout_marginTop="40dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="40dp"
             android:backgroundTint="#2821EA"
             android:clickable="true"
             android:onClick="clicked"
@@ -109,14 +111,15 @@
 
         <!-- Column 2 -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cvSignOut"
+            android:id="@+id/cvFeedback"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="40dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginRight="40dp"
             android:backgroundTint="#2821EA"
             android:clickable="true"
             android:onClick="clicked"
