@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,15 +25,17 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 
 public class uploadDP extends AppCompatActivity {
 
     ImageView ivDP;
-    Button btnSkip, btnUpload, btnProceed;
+    Button btnUpload, btnProceed;
     TextView tvUploading, tvPercentage;
     ProgressBar pbUploading;
 
     Uri imageUri;
+    Bitmap imageBitmap;
     
     private StorageReference storageReference;
 
@@ -42,7 +45,6 @@ public class uploadDP extends AppCompatActivity {
         setContentView(R.layout.activity_upload_d_p);
 
         ivDP = findViewById(R.id.ivDP);
-        btnSkip = findViewById(R.id.btnSkip);
         btnUpload = findViewById(R.id.btnUpload);
         btnProceed = findViewById(R.id.btnProceed);
         tvUploading = findViewById(R.id.tvUploading);
@@ -54,15 +56,6 @@ public class uploadDP extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference();
 
 
-        Intent intent = new Intent(this, personalDetails.class);
-        intent.putExtra("email", getIntent().getExtras().getString("email"));
-        intent.putExtra("password", getIntent().getExtras().getString("password"));
-
-
-        btnSkip.setOnClickListener(v -> {
-            startActivity(intent);
-        });
-
 
         btnUpload.setOnClickListener(v -> {
             choosePicture();
@@ -70,6 +63,9 @@ public class uploadDP extends AppCompatActivity {
 
 
         btnProceed.setOnClickListener(v -> {
+            Intent intent = new Intent(this, personalDetails.class);
+            intent.putExtra("email", getIntent().getExtras().getString("email"));
+            intent.putExtra("password", getIntent().getExtras().getString("password"));
             startActivity(intent);
         });
 
@@ -90,7 +86,13 @@ public class uploadDP extends AppCompatActivity {
         if(requestCode==1 && resultCode==RESULT_OK && data!=null && data.getData()!=null)
         {
             imageUri = data.getData();
-            ivDP.setImageURI(imageUri);
+            try {
+                imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                imageBitmap = getResizedBitmap(imageBitmap, 1000);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ivDP.setImageBitmap(imageBitmap);
             uploadPicture();
         }
     }
@@ -102,9 +104,13 @@ public class uploadDP extends AppCompatActivity {
         pbUploading.setVisibility(View.VISIBLE);
         tvPercentage.setVisibility(View.VISIBLE);
 
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
         StorageReference riversRef = storageReference.child("Profile Pictures").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-        riversRef.putFile(imageUri)
+        riversRef.putBytes(data)
                 .addOnSuccessListener(taskSnapshot -> {
                     btnProceed.setVisibility(View.VISIBLE);
                     tvUploading.setVisibility(View.GONE);
@@ -122,5 +128,21 @@ public class uploadDP extends AppCompatActivity {
                     pbUploading.setProgress((int)progressPercent);
                     tvPercentage.setText(String.format("%d%%", (int) progressPercent));
                 });
+    }
+
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float)width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 }

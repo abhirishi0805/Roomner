@@ -9,7 +9,6 @@
     tools:context=".registerUser">
 
     <ImageView
-        android:id="@+id/imageView2"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_gravity="center_horizontal"
@@ -70,7 +69,6 @@
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textPassword" />

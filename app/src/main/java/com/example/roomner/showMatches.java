@@ -41,8 +41,8 @@ public class showMatches extends AppCompatActivity implements matchAdapter.itemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_matches);
 
-        progressBar3 = (ProgressBar) findViewById(R.id.progressBar3);
-        tvLoading = (TextView) findViewById(R.id.tvLoading);
+        progressBar3 = findViewById(R.id.progressBar3);
+        tvLoading = findViewById(R.id.tvLoading);
 
         people = new ArrayList<>();
 
